@@ -1,1 +1,8 @@
 /src
+/puclic
+
+.browserslistrc
+.editorconfig
+.eslintrc.js
+babel.config.js
+vue.config.js
