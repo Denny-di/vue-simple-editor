@@ -16,6 +16,44 @@ const app = createApp(App);
 app.use(SimpleEditor);
 ```
 
+### 按需引入
+> 需要先安装插件
+```
+    npm i babel-plugin-import --save-dev
+```
+
+> 在引入组件库的项目根目录新建.babelrc 文件， 配置如下
+```
+{
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "vue-simple-editor", // 组件名
+        "libraryDirectory": "packages" // 组件源码包名
+      }
+    ]
+  ]
+}
+```
+
+> 按需引入示例
+```
+<tempalte>
+	<div>
+        <simple-editor></simple-editor>
+        <v-emoji></v-emoji>
+    </div>
+</tempalte>
+import { SimpleEditor, VEmoji } from "vue-simple-editor";
+export default {
+	components:{
+    	[SimpleEditor.name]: SimpleEditor,
+    	[VEmoji.name]: VEmoji,
+    }
+}
+```
+
 ## Props
 Name|Type|Default|Description
 --|:--:|--:|--:

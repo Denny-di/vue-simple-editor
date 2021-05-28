@@ -36,6 +36,7 @@
 
 <script>
 import { reactive, ref, toRefs } from "vue";
+import VEmoji from "../v-emoji";
 export default {
     name: "simple-editor",
     props: {
@@ -47,6 +48,9 @@ export default {
             type: [Number, String],
             default: "",
         },
+    },
+    components: {
+        [VEmoji.name]: VEmoji,
     },
     emits: ["update:value", "update:text"],
     setup(props, { emit }) {

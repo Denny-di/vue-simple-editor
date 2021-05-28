@@ -1,5 +1,5 @@
 // 导入button组件
-import SimpleEditor from "./index.vue";
+import SimpleEditor from "./components/simple-editor";
 import VEmoji from "./components/v-emoji";
 
 const components = [SimpleEditor, VEmoji];
@@ -18,6 +18,7 @@ const install = function (Vue) {
 if (typeof window !== "undefined" && window.Vue) {
     install(window.Vue);
 }
+export { SimpleEditor, VEmoji };
 
 export default {
     // 导出的对象必须具有 install，才能被 Vue.use() 方法安装
