@@ -1,6 +1,6 @@
 // 导入button组件
-import SimpleEditor from "./components/simple-editor";
-import VEmoji from "./components/v-emoji";
+import SimpleEditor from "./simple-editor";
+import VEmoji from "./v-emoji";
 
 const components = [SimpleEditor, VEmoji];
 

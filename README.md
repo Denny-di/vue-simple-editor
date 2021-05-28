@@ -83,6 +83,6 @@ export default {
 
 ```
 
-![Examples](/packages/img/examples.jpg "Examples")
+![Examples](https://raw.githubusercontent.com/Denny-di/vue-simple-editor/master/src/assets/img/examples.jpg "Examples")
 
 
