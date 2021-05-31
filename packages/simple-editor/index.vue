@@ -40,7 +40,7 @@ export default {
                     const reg = new RegExp(value, "g");
                     content.value = content.value.replace(
                         reg,
-                        `<span></span><section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="${value}">${key}</section><span></span>`
+                        `<span>&nbsp;</span><section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="${value}">${key}</section><span>&nbsp;</span>`
                     );
                 }
             }
@@ -78,7 +78,9 @@ export default {
             range.collapse(); //  true 折叠到 Range 的 start 节点，默认 false 折叠到 end 节点。
             if (type !== "text") {
                 node.setAttribute("data-value", value);
-                range.insertNode(document.createElement("span"));
+                const span = document.createElement("span");
+                span.innerHTML = "&nbsp;";
+                range.insertNode(span);
                 range.collapse(); //  true 折叠到 Range 的 start 节点，默认 false 折叠到 end 节点。
             }
             getRange();
