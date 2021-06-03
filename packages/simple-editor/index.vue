@@ -40,9 +40,10 @@ export default {
                     const reg = new RegExp(value, "g");
                     content.value = content.value.replace(
                         reg,
-                        `<span>&nbsp;</span><section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="${value}">${key}</section><span>&nbsp;</span>`
+                        `<section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="${value}">${key}</section>`
                     );
                 }
+                content.value += "<span>&nbsp;</span>";
             }
         };
 
@@ -92,7 +93,6 @@ export default {
             range = selection.getRangeAt(0);
             // console.log("selection=>", selection);
             // console.log("range=>", range);
-
             submit();
         };
 
