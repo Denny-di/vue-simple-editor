@@ -43,7 +43,9 @@ export default {
                         `<section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="${value}">${key}</section>`
                     );
                 }
-                content.value += "<span>&nbsp;</span>";
+                if (text[text.length - 1] !== " ") {
+                    content.value += "<span>&nbsp;</span>";
+                }
             }
         };
 

@@ -50,7 +50,7 @@ export default {
 哈                   哈哈
 tag
 {{value}}
-#hot#`,
+#hot# `,
                 //                 content: `表情-&gt; 😄😍😳✋😋😎👀🌹🌾
                 // 哈                   哈哈
                 // <span></span><section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="tag">tag</section><span></span>
