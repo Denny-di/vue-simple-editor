@@ -44,7 +44,7 @@ export default {
                     );
                 }
                 if (text[text.length - 1] !== " ") {
-                    content.value += "<span>&nbsp;</span>";
+                    content.value += "<span> </span>";
                 }
             }
         };
@@ -82,7 +82,7 @@ export default {
             if (type !== "text") {
                 node.setAttribute("data-value", value);
                 const span = document.createElement("span");
-                span.innerHTML = "&nbsp;";
+                span.innerHTML = " ";
                 range.insertNode(span);
                 range.collapse(); //  true 折叠到 Range 的 start 节点，默认 false 折叠到 end 节点。
             }
