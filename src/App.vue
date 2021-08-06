@@ -28,12 +28,14 @@
         <div class="btn-wrap">
             <button @click="hanldeClick('text')">获取纯文本</button>
             <button @click="hanldeClick('html')">获取富文本</button>
+            <button @click="initText(content)">设置富文本</button>
+            <button @click="initText(undefined)">清空</button>
         </div>
     </div>
 </template>
 
 <script>
-import { onMounted, reactive, ref, toRefs } from "vue";
+import { onMounted, reactive, toRefs } from "vue";
 import { SimpleEditor, VEmoji } from "../packages";
 
 export default {
@@ -43,14 +45,17 @@ export default {
         [VEmoji.name]: VEmoji,
     },
     setup() {
-        const state = reactive({
-            show_emoji: false,
-            form: {
-                content: `表情-> 😄😍😳✋😋😎👀🌹🌾
+        const content = `表情-> 😄😍😳✋😋😎👀🌹🌾
 哈                   哈哈
 tag
 {{value}}
-#hot# `,
+#hot# `;
+        const state = reactive({
+            content,
+            EditorRef: null,
+            show_emoji: false,
+            form: {
+                content,
                 //                 content: `表情-&gt; 😄😍😳✋😋😎👀🌹🌾
                 // 哈                   哈哈
                 // <span></span><section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="tag">tag</section><span></span>
@@ -65,30 +70,35 @@ tag
             },
         });
 
-        const EditorRef = ref(null);
         const insertNode = (type = "text", content, value) => {
-            EditorRef.value.insertNode(type, content, value);
+            state.EditorRef.insertNode(type, content, value);
         };
 
         const hanldeClick = (type) => {
             let content = "";
             if (type === "text") {
-                content = EditorRef.value.getText();
+                content = state.EditorRef.getText();
             } else {
-                content = EditorRef.value.getHtml();
+                content = state.EditorRef.getHtml();
             }
             console.log(content);
         };
 
+        // // 初始化文本
+        const initText = (text) => {
+            console.log("text=> ", text);
+            state.EditorRef.initText(text, state.tags);
+        };
+
         onMounted(() => {
-            EditorRef.value.initText(state.form.content, state.tags);
+            initText(state.form.content);
         });
 
         return {
             ...toRefs(state),
-            EditorRef,
             insertNode,
             hanldeClick,
+            initText,
         };
     },
 };

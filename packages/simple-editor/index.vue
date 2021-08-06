@@ -1,7 +1,7 @@
 <template>
     <div class="simple-editor">
         <div
-            ref="textRef"
+            ref="TextRef"
             class="editor-content"
             contenteditable="true"
             v-html="content"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { reactive, toRefs } from "vue";
 export default {
     name: "simple-editor",
     props: {
@@ -23,8 +23,10 @@ export default {
     },
     emits: ["update:value"],
     setup(props, { emit }) {
-        const textRef = ref(null);
-        const content = ref("");
+        const state = reactive({
+            TextRef: null,
+            content: "",
+        });
         let range = null; // 光标实例
 
         /**
@@ -33,25 +35,26 @@ export default {
          * type = 2  富文本
          */
         const initText = (text = "", tags = {}, type = 1) => {
-            content.value = text;
+            state.content = text;
             if (type === 1) {
                 for (let key in tags) {
                     const value = tags[key];
                     const reg = new RegExp(value, "g");
-                    content.value = content.value.replace(
+                    state.content = state.content.replace(
                         reg,
                         `<section class="tag" unselectable="no" onmousedown="return false" contenteditable="false" data-value="${value}">${key}</section>`
                     );
                 }
                 if (text[text.length - 1] !== " ") {
-                    content.value += "<span> </span>";
+                    state.content += "<span> </span>";
                 }
             }
+            state.TextRef.innerHTML = state.content;
         };
 
         // 插入节点
         const insertNode = (type = "text", e, value = "") => {
-            textRef.value.focus();
+            state.TextRef.focus();
             const selection = getSelection();
             selection.deleteFromDocument(); // 删除光标所选区域
 
@@ -103,13 +106,13 @@ export default {
         };
         // 获取HTML
         const getHtml = () => {
-            return textRef.value.innerHTML;
+            return state.TextRef.innerHTML;
         };
 
         /**
          * 获取文本
          */
-        const getText = (node = textRef.value) => {
+        const getText = (node = state.TextRef) => {
             let str = "";
             switch (node.nodeName) {
                 case "DIV":
@@ -135,8 +138,7 @@ export default {
         };
 
         return {
-            textRef,
-            content,
+            ...toRefs(state),
             initText,
             insertNode,
             getRange,
